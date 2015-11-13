@@ -1,5 +1,5 @@
 %% LAB 1
 
-filename ='BoldRedEye.jpg';
-nopts = 3;
+filename ='elephant.jpg';
+nopts = 5;
 [ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = BasicImageInfo( filename, nopts);

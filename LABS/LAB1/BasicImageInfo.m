@@ -80,7 +80,7 @@ RGBpts = zeros(nopts,3);
 fh1 = imshow(filename);
 PtPos = ginput(nopts);
 for k = 1:nopts
-    RGBpts( k, :) = OImage( round(PtPos(k,2)), round(PtPos(k,1)), : );
+    RGBpts(k, :) = OImage(round(PtPos(k,2)), round(PtPos(k,1)), :);
 end
 
 %% Generate the white squares and display the result
@@ -90,7 +90,11 @@ figh = figure;
 DImage = OImage;
 for k = 1:nopts
     %Generate the white squares
-    DImage( round(PtPos(k,2)), round(PtPos(k,1)), : ) = [255,255,255];
+    for n = 1:Qsize
+        for j = 1:Qsize
+            DImage(round(PtPos(k,2))+n, round(PtPos(k,1))+j, :) = [255,255,255];
+        end
+    end
 end
 imshow(DImage);
 
