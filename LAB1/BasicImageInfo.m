@@ -90,7 +90,7 @@ figh = figure;
 DImage = OImage;
 for k = 1:nopts
     %Generate the white squares
-    DImage( (round(PtPos(k,2))):(round(PtPos(k,2)) + Qsize), (round(PtPos(k,1))):(round(PtPos(k,1)) + Qsize), : ) = [255,255,255];
+    DImage( round(PtPos(k,2)), round(PtPos(k,1)), : ) = [255,255,255];
 end
 imshow(DImage);
 
