@@ -59,7 +59,6 @@ Qsize = 10;
 
 %% Your code starts here
 %
-filename = 'BoldRedEye.jpg';
 info = imfinfo(filename);
 %% Collect image information with imfinfo 
 %   (ONE line of code for each output variable)
@@ -77,7 +76,6 @@ MaxMin = [max(OImage(:)),min(OImage(:))];
 %% Pick the pixel positions and collect the RGBvectors
 % Decide what you do if it is a grayvalue image
 %
-nopts = 3;
 RGBpts = zeros(nopts,3);
 fh1 = imshow(filename);
 PtPos = ginput(nopts);
@@ -92,6 +90,7 @@ figh = figure;
 DImage = OImage;
 for k = 1:nopts
     %Generate the white squares
+    DImage( (round(PtPos(k,2))):(round(PtPos(k,2)) + Qsize), (round(PtPos(k,1))):(round(PtPos(k,1)) + Qsize), : ) = [255,255,255];
 end
 imshow(DImage);
 

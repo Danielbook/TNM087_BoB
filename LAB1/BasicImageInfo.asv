@@ -82,7 +82,7 @@ RGBpts = zeros(nopts,3);
 fh1 = imshow(filename);
 PtPos = ginput(nopts);
 for k = 1:nopts
-    RGBpts( k, :, :) = OImage( round(PtPos(k,2)), round(PtPos(k,1)) );
+    RGBpts( k, :) = OImage( round(PtPos(k,2)), round(PtPos(k,1)), : );
 end
 
 %% Generate the white squares and display the result
@@ -92,6 +92,8 @@ figh = figure;
 DImage = OImage;
 for k = 1:nopts
     %Generate the white squares
+    clicked = OImage( round(PtPos(k,2)), round(PtPos(k,1)), : );
+    DImage(clicked) = [255,2
 end
 imshow(DImage);
 
