@@ -92,10 +92,10 @@ for k = 1:nopts
     for j = 1:Qsize
         for n = 1:Qsize
             %Generate the white squares
-            if(ColorType == 'grayscale')
-                DImage( ( round(PtPos(k,2)) + j ) , ( round(PtPos(k,1)) + n ), :) = [255];
-            else
-                DImage( ( round(PtPos(k,2)) + j ) , ( round(PtPos(k,1)) + n ), :) = [255, 255, 255];
+            if(ColorType == 'grayscale') % If grayscale, there's only one channel to change
+                DImage( ( round(PtPos(k,2)) + j ) , ( round(PtPos(k,1)) + n ), : ) = [255];
+            else % Color Image has 3 channels
+                DImage( ( round(PtPos(k,2)) + j ) , ( round(PtPos(k,1)) + n ), : ) = [255, 255, 255];
             end
         end
     end

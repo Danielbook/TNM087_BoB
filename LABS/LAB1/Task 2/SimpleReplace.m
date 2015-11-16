@@ -61,16 +61,20 @@ Oimage = imread(filename);
 Nimage = Oimage;
 
 % change rows
-Nimage = [255,0,0];
+Nimage(rows,:,1) = 255; %RED
+Nimage(rows,:,2) = 0; 
+Nimage(rows,:,3) = 0; 
 
 % change cols
-Nimage = [0,255,0];
+Nimage(:,cols,1) = 0; 
+Nimage(:,cols,2) = 255; %GREEN
+Nimage(:,cols,3) = 0; 
 
 % change box
-Nimage = [0,0,0];
+Nimage( box(1):( box(1)+box(3)), box(2 ):( box(2)+box(4) ), :) = 0; %BLACK
 
 % change grid points
-Nimage = [255,255,255];
+Nimage(rows,cols,:) = 255; %WHITE
 
 %% Display result
 %

@@ -49,7 +49,7 @@ function MImage = EllipsMask(FImage)
 % Use einstein.jpg as your FImage
 
 [sr,sc] = size(FImage);
-MImage = 
+MImage = FImage;
 
 %% Generate the coordinates of the grid points
  [C R] = meshgrid((1:sc),(1:sr));
