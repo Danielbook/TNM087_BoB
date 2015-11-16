@@ -60,23 +60,23 @@ Qsize = 10;
 %% Your code starts here
 %
 info = imfinfo(filename);
-%% Collect image information with imfinfo 
+%% Collect image information with imfinfo
 %   (ONE line of code for each output variable)
 
 ImSize = info.FileSize;         %Get the file size
 ImType = info.Format;           %Get the format of the file
 BitPerPixel = info.BitDepth;    %Get the bit depth
 ColorType = info.ColorType;
-% Use 'ColorType' to find out if it is a color or a grayvalue image 
+% Use 'ColorType' to find out if it is a color or a grayvalue image
 %% Compute minimum and maximum values
 %   (ONE line of code)
 OImage = imread(filename);
-MaxMin = [max(OImage(:)),min(OImage(:))];
+MaxMin = [max(OImage(:)), min(OImage(:))];
 
 %% Pick the pixel positions and collect the RGBvectors
 % Decide what you do if it is a grayvalue image
 %
-RGBpts = zeros(nopts,3);
+RGBpts = zeros(nopts, info.NumberOfSamples);
 fh1 = imshow(filename);
 PtPos = ginput(nopts);
 for k = 1:nopts
@@ -89,14 +89,17 @@ figh = figure;
 
 DImage = OImage;
 for k = 1:nopts
-    %Generate the white squares
-    for n = 1:Qsize
-        for j = 1:Qsize
-            DImage(round(PtPos(k,2))+n, round(PtPos(k,1))+j, :) = [255,255,255];
+    for j = 1:Qsize
+        for n = 1:Qsize
+            %Generate the white squares
+            if(ColorType == 'grayscale')
+                DImage( ( round(PtPos(k,2)) + j ) , ( round(PtPos(k,1)) + n ), :) = [255];
+            else
+                DImage( ( round(PtPos(k,2)) + j ) , ( round(PtPos(k,1)) + n ), :) = [255, 255, 255];
+            end
         end
     end
 end
 imshow(DImage);
 
 end
-
