@@ -7,8 +7,7 @@ function [ ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = ...
 %
 %% Who has done it
 %
-% Author: Danbo324
-%
+% Author: Daniel Böök - Danbo324
 %
 %% Syntax of the function
 %
@@ -31,8 +30,8 @@ function [ ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = ...
 %
 %% Basic version control (in case you need more than one attempt)
 %
-% Version: 1
-% Date: today
+% Version: 2
+% Date: 2015-11-20
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -59,30 +58,28 @@ Qsize = 10;
 
 %% Your code starts here
 %
-filename = 'BoldRedEye.jpg';
 info = imfinfo(filename);
-%% Collect image information with imfinfo 
+%% Collect image information with imfinfo
 %   (ONE line of code for each output variable)
 
 ImSize = info.FileSize;         %Get the file size
 ImType = info.Format;           %Get the format of the file
 BitPerPixel = info.BitDepth;    %Get the bit depth
 ColorType = info.ColorType;
-% Use 'ColorType' to find out if it is a color or a grayvalue image 
+% Use 'ColorType' to find out if it is a color or a grayvalue image
 %% Compute minimum and maximum values
 %   (ONE line of code)
 OImage = imread(filename);
-MaxMin = [max(OImage(:)),min(OImage(:))];
+MaxMin = [max(OImage(:)), min(OImage(:))];
 
 %% Pick the pixel positions and collect the RGBvectors
 % Decide what you do if it is a grayvalue image
 %
-nopts = 3;
-RGBpts = zeros(nopts,3);
+RGBpts = zeros(nopts, info.NumberOfSamples);
 fh1 = imshow(filename);
 PtPos = ginput(nopts);
 for k = 1:nopts
-    RGBpts( k, :) = OImage( round(PtPos(k,2)), round(PtPos(k,1)), : );
+    RGBpts(k, :) = OImage(round(PtPos(k,2)), round(PtPos(k,1)), :);
 end
 
 %% Generate the white squares and display the result
@@ -91,11 +88,8 @@ figh = figure;
 
 DImage = OImage;
 for k = 1:nopts
-    %Generate the white squares
-    clicked = OImage( round(PtPos(k,2)), round(PtPos(k,1)), : );
-    DImage(clicked) = [255,2
+    DImage = insertShape(DImage, 'FilledRectangle', [round(PtPos(k,1)), round(PtPos(k,2)), Qsize, Qsize], 'Color', 'white', 'Opacity', 1);
 end
 imshow(DImage);
 
 end
-

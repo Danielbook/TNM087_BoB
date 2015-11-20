@@ -4,7 +4,7 @@ function figh = SimpleReplace(filename, rows, cols, box )
 %
 %% Who has done it
 %
-% Author: Danbo324
+% Author: Daniel Böök - Danbo324
 %
 %% Syntax of the function
 %
@@ -23,7 +23,7 @@ function figh = SimpleReplace(filename, rows, cols, box )
 %% Basic version control (in case you need more than one attempt)
 %
 % Version: 1
-% Date: today
+% Date: 2015-11-17
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -71,10 +71,10 @@ Nimage(:,cols,2) = 255; %GREEN
 Nimage(:,cols,3) = 0; 
 
 % change box
-Nimage( box(1):( box(1)+box(3)), box(2 ):( box(2)+box(4) ), :) = 0; %BLACK
+Nimage( box(1):( box(1)+box(3)), box(2):( box(2)+box(4) ), :) = 0; %BLACK
 
 % change grid points
-Nimage(rows,cols,:) = 255; %WHITE
+Nimage( rows, cols, : ) = 255; %WHITE
 
 %% Display result
 %
