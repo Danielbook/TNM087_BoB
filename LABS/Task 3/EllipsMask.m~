@@ -100,16 +100,15 @@ y1 = epts(1,2);
 x2 = epts(2,1);
 y2 = epts(2,2);
 
-centerPointEye = [x1,y1];
+centerPoint = [x1,y1];
 radius = sqrt( (y2-y1).^2 + (x2-x1).^2 );
 
-emask = ((C - centerPointEye(1,1)).^2)./radius + ((R - centerPointEye(1,2)).^2)./radius <= 1;% circular eye mask again, use C and R
+emask = (C - centerPoint(1).^2 + (R - epts(1)).^2 < 1;% circular eye mask again, use C and R
+
 
 emask = uint8(emask);
 
-emask = emask * 255;
-
-MImage() = % replace eye points with red pixels
+MImage;% replace eye points with red pixels
 
 
 %% Display result if you want
