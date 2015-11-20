@@ -23,6 +23,7 @@ EllipsMask(FImage);
 
 %% TASK 4
 OImage='BoldRedEye.JPG';
-CImage = WhitePoint(OImage,type);
+
+CImage = WhitePoint(OImage);
 
 %% TASK 5

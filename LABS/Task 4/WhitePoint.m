@@ -52,6 +52,7 @@ function CImage = WhitePoint(OImage,type)
 % More information about handling of function arguments, string
 % manipulation and basic data types can be found in WhitePoint.pdf
 %
+OImage = imread(OImage);
 
 if (nargin < 2)
     otype = 'b';
@@ -77,18 +78,10 @@ end;
 %% Display the input image and pick the white point
 
 fh = figure;
-imshow %display the input image 
+imshow(OImage); %display the input image 
 whitept = ginput(1); % select the point that should be white
 rgbvec = squeeze(... % This is the RGB vector at the point you selected
-%% Generate the result image CImage
-switch otype
-    case 'b' %uint8
-        CImage
-    case 'd' %double
-        CImage
-    otherwise 
-%         if you do the extended version add your code here
-end 
+
 
 
 %% Scaling of CImage such that the pixel at whitept is
@@ -103,6 +96,15 @@ end
 % after the scaling you have to truncate the pixel values
 % Finally you have to convert the result to the datatype given by otype
 
+%% Generate the result image CImage
+switch otype
+    case 'b' %uint8
+        CImage(whitept(1,2), whitept(1,1), :);
+    case 'd' %double
+        CImage
+    otherwise 
+%         if you do the extended version add your code here
+end 
 CImage =
 
 %% Cleaning
