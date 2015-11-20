@@ -71,22 +71,10 @@ fpts = ginput(3);
 
 %% Generate the elliptical mask and
 % set all points in MImage outside the mask to black
+a = sqrt( (fpts(2,2) - fpts(1,2))^2 + (fpts(2,1) - fpts(1,1))^2 );
+b = sqrt( (fpts(3,2) - fpts(1,2))^2 + (fpts(3,1) - fpts(1,1))^2 );
 
-x1 = fpts(1,1); %Write out the points to see things clearer
-y1 = fpts(1,2);
-x2 = fpts(2,1);
-y2 = fpts(2,2);
-x3 = fpts(3,1);
-y3 = fpts(3,2);
-
-centerPoint = [ x1, y2-y1 ]; % Assume x-axis is constant
-centerDistY = sqrt( (y2-y1).^2 );
-centerDistX = sqrt( (x3 - centerPoint(1,1)).^2 );
-
-a = centerDistY/2;
-b = centerDistX;
-
-fmask = ((C-centerPoint(1,1)).^2./b^2)+((R-centerPoint(1,2)).^2./a^2)<=1;% this is the mask use C and R to generate it
+fmask = ((C-fpts(1,1)).^2./b^2)+((R-fpts(1,2))).^2./a^2<=1;% this is the mask use C and R to generate it
 
 MImage(~fmask) = 0;% here you modify the image using fmask
 
@@ -102,8 +90,17 @@ emask = ((C - centerPointEye(1,1)).^2) + ((R - centerPointEye(1,2)).^2) <= radiu
 
 MImage = repmat(MImage,[1 1 3]);% Convert to rgb image
 
-MImage(emask) = 255;% replace eye points with red pixels
+RED = MImage(:,:,1);% replace eye points with red pixels
+GREEN = MImage(:,:,2);
+BLUE = MImage(:,:,3);
 
+RED(emask) = 255;
+GREEN(emask) = 0;
+BLUE(emask) = 0;
+
+MImage(:,:,1) = RED;
+MImage(:,:,2) = GREEN;
+MImage(:,:,3) = BLUE;
 
 %% Display result if you want
 %
