@@ -87,29 +87,22 @@ a = centerDistY/2;
 b = centerDistX;
 
 fmask = ((C-centerPoint(1,1)).^2./b^2)+((R-centerPoint(1,2)).^2./a^2)<=1;% this is the mask use C and R to generate it
-fmask = uint8(fmask);
-MImage = MImage.*fmask;% here you modify the image using fmask
+
+MImage(~fmask) = 0;% here you modify the image using fmask
 
 imshow(MImage);
 %% Pick two points defining one eye, generate the eyemask, paint it red
 
 epts = ginput(2);
 
-x1 = epts(1,1); %Write out the points to see things clearer
-y1 = epts(1,2);
-x2 = epts(2,1);
-y2 = epts(2,2);
+centerPointEye = [epts(1,1),epts(1,2)];
+radius = (epts(2,2)-epts(1,2))^2 + (epts(2,1)-epts(1,1))^2;
 
-centerPointEye = [x1,y1];
-radius = sqrt( (y2-y1).^2 + (x2-x1).^2 );
+emask = ((C - centerPointEye(1,1)).^2) + ((R - centerPointEye(1,2)).^2) <= radius;% circular eye mask again, use C and R
 
-emask = ((C - centerPointEye(1,1)).^2)./radius + ((R - centerPointEye(1,2)).^2)./radius <= 1;% circular eye mask again, use C and R
+MImage = repmat(MImage,[1 1 3]);% Convert to rgb image
 
-emask = uint8(emask);
-
-emask = emask * 255;
-
-MImage() = % replace eye points with red pixels
+MImage(emask) = 255;% replace eye points with red pixels
 
 
 %% Display result if you want

@@ -22,6 +22,7 @@ FImage='einstein.jpg';
 EllipsMask(FImage);
 
 %% TASK 4
-
+OImage='BoldRedEye.JPG';
+CImage = WhitePoint(OImage,type);
 
 %% TASK 5

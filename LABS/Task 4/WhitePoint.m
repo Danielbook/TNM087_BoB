@@ -4,9 +4,7 @@ function CImage = WhitePoint(OImage,type)
 %
 %% Who has done it
 %
-% Author: Same LiU-ID/name as in the Lisam submission
-% Co-author: You can work in groups of max 2, this is the LiU-ID/name of
-% the other member of the group
+% Author: Daniel Böök - Danbo324
 %
 %% Syntax of the function
 %
@@ -71,7 +69,7 @@ end;
 % You can assume that it is either uint8 or double
 %
     if isa(OImage,'uint8')
-        InputImage = % convert to double
+        InputImage = im2double(OImage);% convert to double
     else
         InputImage = OImage;
     end
