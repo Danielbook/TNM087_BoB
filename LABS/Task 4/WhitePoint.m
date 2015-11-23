@@ -20,7 +20,7 @@ function CImage = WhitePoint(OImage,type)
 %% Basic version control (in case you need more than one attempt)
 %
 % Version: 1
-% Date: today
+% Date: 2015-11-23
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -110,8 +110,6 @@ end
 
 %% Cleaning
 close(fh)
-imshow(CImage);
-
 
 end
 

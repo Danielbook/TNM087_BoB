@@ -25,5 +25,11 @@ EllipsMask(FImage);
 OImage='BoldRedEye.JPG';
 
 CImage = WhitePoint(OImage,'d');
+imshow(CImage);
 
 %% TASK 5
+OImage='einstein.jpg';
+
+OImage = GammaCorrection( OImage, Gamma, Lower, Upper );
+
+imshow(OImage);
