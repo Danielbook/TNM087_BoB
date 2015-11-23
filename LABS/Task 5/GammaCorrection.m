@@ -52,13 +52,18 @@ function GImage = GammaCorrection( OImage, Gamma, Lower, Upper )
 
 %% Image size and result allocation
 %
+OImage = imread(OImage);
+
+OImage = im2double(OImage);
+
 [sx,sy,nc] = size(OImage);
-GImage =
+%GImage = zeros(sx,sy,nc);
+GImage = OImage;
 
 %% Lower and upper gray value boundaries
 %
-lowgv = quantile(....,Lower)
-    uppgv = quantile(....,Upper)
+lowgv = quantile(GImage(:),Lower);
+uppgv = quantile(GImage(:),Upper);
     
 %% Compute a scaled version GImage of the image where
 % the lower-bound gray value is zero
@@ -66,11 +71,11 @@ lowgv = quantile(....,Lower)
 % because 0^Gamma = 0 and 1^Gamma = 1
 %
 
-GImage =
+GImage = (GImage - lowgv)/(uppgv-lowgv);
 
 %% Actual mapping of the previous result
 %
-GImage(  ) = .^ %mapping
+GImage = GImage.^Gamma; %mapping
 
 
 end

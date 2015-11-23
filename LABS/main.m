@@ -30,6 +30,16 @@ imshow(CImage);
 %% TASK 5
 OImage='einstein.jpg';
 
+Gamma = 2;
+
+Lower = 0.3;
+
+Upper = 0.87;
+
+imshow(OImage);
+
+figure;
+
 OImage = GammaCorrection( OImage, Gamma, Lower, Upper );
 
 imshow(OImage);
