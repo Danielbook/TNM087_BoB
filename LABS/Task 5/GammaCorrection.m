@@ -7,19 +7,17 @@ function GImage = GammaCorrection( OImage, Gamma, Lower, Upper )
 %
 %% Who has done it
 %
-% Author: Same LiU-ID/name as in the Lisam submission
-% Co-author: You can work in groups of max 2, this is the LiU-ID/name of
-% the other member of the group
+% Author: Daniel Böök - Danbo324
 %
 %% Syntax of the function
 %
 %   Input arguments:
 %       OImage: RGB image of type uint8 or double
-%       Gamma: exponent used in the gamma correction, 
+%       Gamma: exponent used in the gamma correction,
 %       'GImage = OImage^Gamma'
 %       Lower: value in the range 0, 1
 %       Upper: value in the range 0, 1 and lower < upper
-%       Lower and Upper are quantile values. 
+%       Lower and Upper are quantile values.
 %   Output argument: GImage: gamma corrected gray value image of type double
 %
 % You MUST NEVER change the first line
@@ -55,22 +53,22 @@ function GImage = GammaCorrection( OImage, Gamma, Lower, Upper )
 %% Image size and result allocation
 %
 [sx,sy,nc] = size(OImage);
-GImage = 
+GImage =
 
 %% Lower and upper gray value boundaries
 %
 lowgv = quantile(....,Lower)
-uppgv = quantile(....,Upper)
-
-%% Compute a scaled version GImage of the image where 
-% the lower-bound gray value is zero 
-% the upper-bound gray value is one 
+    uppgv = quantile(....,Upper)
+    
+%% Compute a scaled version GImage of the image where
+% the lower-bound gray value is zero
+% the upper-bound gray value is one
 % because 0^Gamma = 0 and 1^Gamma = 1
 %
 
-GImage = 
+GImage =
 
-%% Actual mapping of the previous result 
+%% Actual mapping of the previous result
 %
 GImage(  ) = .^ %mapping
 
