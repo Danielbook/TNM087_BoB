@@ -30,7 +30,7 @@ imshow(CImage);
 %% TASK 5
 OImage='einstein.jpg';
 
-Gamma = 2;
+Gamma = 10;
 
 Lower = 0.3;
 
