@@ -30,8 +30,8 @@ function [ ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = ...
 %
 %% Basic version control (in case you need more than one attempt)
 %
-% Version: 2
-% Date: 2015-11-20
+% Version: 3
+% Date: 2015-11-27
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
