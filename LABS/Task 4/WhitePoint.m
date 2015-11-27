@@ -89,14 +89,15 @@ rgbvec = squeeze( InputImage(round(whitept(2)), round(whitept(1)), :) ); % This 
 %
 % Also truncate pixel values greater than maxpix to maxpix
 %
+% Here you need several lines of code where rgbvec defines the scaling
+% after the scaling you have to truncate the pixel values
+% Finally you have to convert the result to the datatype given by otype
+
 InputImage(:,:,1) = InputImage(:,:,1)/rgbvec(1);
 InputImage(:,:,2) = InputImage(:,:,2)/rgbvec(2);
 InputImage(:,:,3) = InputImage(:,:,3)/rgbvec(3);
 
-% Here you need several lines of code where rgbvec defines the scaling
-% after the scaling you have to truncate the pixel values
-% Finally you have to convert the result to the datatype given by otype
-InputImage(InputImage>1) = 1;
+InputImage(InputImage>1) = 1; %Create a mask and trunkate all values above 1 to 1
 
 %% Generate the result image CImage
 switch otype

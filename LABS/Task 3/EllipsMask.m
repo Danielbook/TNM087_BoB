@@ -44,8 +44,7 @@ function MImage = EllipsMask(FImage)
 
 %% Your code starts here
 %
- clear all; clc;
- FImage='einstein.jpg';
+
 %% create the output image (RGB!) which is a copy of the original image
 % Use einstein.jpg as your FImage
 FImage = imread(FImage);
@@ -67,7 +66,7 @@ MImage = FImage;
 fh1 = imshow(MImage);
 
 fpts = ginput(3);
-% First two is y axis, third x axis
+% First point is the center point
 
 %% Generate the elliptical mask and
 % set all points in MImage outside the mask to black

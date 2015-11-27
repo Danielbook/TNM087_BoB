@@ -30,8 +30,8 @@ function [ ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = ...
 %
 %% Basic version control (in case you need more than one attempt)
 %
-% Version: 3
-% Date: 2015-11-27
+% Version: 2
+% Date: 2015-11-20
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -91,11 +91,11 @@ for k = 1:nopts
     %%DImage = insertShape(DImage, 'FilledRectangle', [round(PtPos(k,1)), round(PtPos(k,2)), Qsize, Qsize], 'Color', 'white', 'Opacity', 1);
     
     if ColorType == 'grayscale'
-        DImage(round(PtPos(k,2) - Qsize/2):round(PtPos(k,2) + Qsize/2), round(PtPos(k,1) - Qsize/2):round(PtPos(k,1) + Qsize/2),1) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,2))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,1) = 255;
     else
-        DImage(round(PtPos(k,2) - Qsize/2):round(PtPos(k,2) + Qsize/2), round(PtPos(k,1) - Qsize/2):round(PtPos(k,1) + Qsize/2),1) = 255;
-        DImage(round(PtPos(k,2) - Qsize/2):round(PtPos(k,2) + Qsize/2), round(PtPos(k,1) - Qsize/2):round(PtPos(k,1) + Qsize/2),2) = 255;
-        DImage(round(PtPos(k,2) - Qsize/2):round(PtPos(k,2) + Qsize/2), round(PtPos(k,1) - Qsize/2):round(PtPos(k,1) + Qsize/2),3) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,1))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,1) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,1))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,2) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,1))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,3) = 255;
     end
 end
 imshow(DImage);

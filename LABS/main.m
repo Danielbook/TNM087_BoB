@@ -4,10 +4,6 @@ filename='einstein.jpg';
 nopts = 3;
 [ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = BasicImageInfo( filename, nopts);
 
-filename='elephant.jpg';
-nopts = 3;
-[ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = BasicImageInfo( filename, nopts);
-
 %% TASK 2
 filename='BoldRedEye.JPG';
 rows=[100:1:200];
@@ -30,7 +26,7 @@ imshow(CImage);
 %% TASK 5
 OImage='einstein.jpg';
 
-Gamma = 2;
+Gamma = 10;
 
 Lower = 0.3;
 
@@ -43,3 +39,9 @@ figure;
 OImage = GammaCorrection( OImage, Gamma, Lower, Upper );
 
 imshow(OImage);
+
+%% TASK 6
+Im1 = 
+Im2 = 
+[ Profile1, Profile2 ] = Vignette( Im1, Im2, norings );
+
