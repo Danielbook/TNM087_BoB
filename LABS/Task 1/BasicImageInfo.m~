@@ -91,11 +91,11 @@ for k = 1:nopts
     %%DImage = insertShape(DImage, 'FilledRectangle', [round(PtPos(k,1)), round(PtPos(k,2)), Qsize, Qsize], 'Color', 'white', 'Opacity', 1);
     
     if ColorType == 'grayscale'
-        DImage(round(PtPos(k,2)):round(PtPos(k,2))+Qsize, round(PtPos(k,1)):round(PtPos(k,1))+Qsize,1) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,2))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,1) = 255;
     else
-        DImage(round(PtPos(k,2)):round(PtPos(k,2))+Qsize, round(PtPos(k,1)):round(PtPos(k,1))+Qsize,1) = 255;
-        DImage(round(PtPos(k,2)):round(PtPos(k,2))+Qsize, round(PtPos(k,1)):round(PtPos(k,1))+Qsize,2) = 255;
-        DImage(round(PtPos(k,2)):round(PtPos(k,2))+Qsize, round(PtPos(k,1)):round(PtPos(k,1))+Qsize,3) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,1))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,1) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,1))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,2) = 255;
+        DImage(round(PtPos(k,2)):round(PtPos(k,1))+Qsize,round(PtPos(k,1)):round(PtPos(k,1))+Qsize,3) = 255;
     end
 end
 imshow(DImage);

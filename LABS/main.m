@@ -4,9 +4,7 @@ filename='einstein.jpg';
 nopts = 3;
 [ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = BasicImageInfo( filename, nopts);
 
-filename='elephant.jpg';
-nopts = 3;
-[ImSize, ImType, BitPerPixel, MaxMin, RGBpts, figh ] = BasicImageInfo( filename, nopts);
+
 
 %% TASK 2
 filename='BoldRedEye.JPG';
