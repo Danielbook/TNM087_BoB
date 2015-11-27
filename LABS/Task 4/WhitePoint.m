@@ -19,8 +19,8 @@ function CImage = WhitePoint(OImage,type)
 %
 %% Basic version control (in case you need more than one attempt)
 %
-% Version: 1
-% Date: 2015-11-23
+% Version: 3
+% Date: 2015-11-27
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -59,6 +59,8 @@ if (nargin < 2)
 else
     if strcmp(type,'b')
         otype = 'b';
+    elseif strcmp(type,'s')
+        otype = 's';
     else
         otype = 'd';
     end
@@ -69,8 +71,8 @@ end;
 %% Find out the type of the input image
 % You can assume that it is either uint8 or double
 %
-if isa(OImage,'uint8')
-    InputImage = im2double(OImage);% convert to double
+if isa(OImage,'uint8') || isa(OImage,'uint16')
+    InputImage = im2double(OImage);% convert to double 
 else
     InputImage = OImage;% is already a double, no need for conversion
 end
@@ -102,11 +104,11 @@ InputImage(InputImage>1) = 1; %Create a mask and trunkate all values above 1 to 
 %% Generate the result image CImage
 switch otype
     case 'b' %uint8
-        CImage = uint8(InputImage);
+        CImage = uint8(255*InputImage);
     case 'd' %double
         CImage = InputImage;
-    otherwise
-        %         if you do the extended version add your code here
+    case 's' %uint16
+        CImage = uint16(65535*InputImage);
 end
 
 %% Cleaning

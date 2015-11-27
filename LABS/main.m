@@ -41,7 +41,8 @@ OImage = GammaCorrection( OImage, Gamma, Lower, Upper );
 imshow(OImage);
 
 %% TASK 6
-Im1 = 
-Im2 = 
-[ Profile1, Profile2 ] = Vignette( Im1, Im2, norings );
+Im1 = 'CWhite1.jpg';
+Im2 = 'HWhite1.jpg';
+
+[ Profile1, Profile2 ] = Vignette( Im1, Im2 );
 

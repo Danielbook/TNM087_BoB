@@ -103,8 +103,8 @@ if sr1 ~= sr2
     end
 end
 %
-cIm1 = Im1(round(src1-sr1/2)+1:round(src1 + sr1/2), round(scc1 - sc1/2)+1:round(scc1 + sc1/2), :);
-cIm2 = Im2(round(src2-sr2/2)+1:round(src2 + sr2/2), round(scc2 - sc2/2)+1:round(scc2 + sc2/2), :);
+cIm1 = Im1(round(src1-sr1/2):round(src1 + sr1/2), round(scc1 - sc1/2):round(scc1 + sc1/2), :);
+cIm2 = Im2(round(src2-sr2/2):round(src2 + sr2/2), round(scc2 - sc2/2):round(scc2 + sc2/2), :);
 
 Profile1 = zeros(norings,1);
 Profile2 = Profile1;
@@ -115,6 +115,7 @@ Profile2 = Profile1;
 %
 % or read the documentation of linspace
 ax = linspace(-norings:src1:norings);
+%...
 
 [C R] = meshgrid %Euclidean mesh
 [~,Rho] = cart2pol %Polar coordinates comment on the ~ used
