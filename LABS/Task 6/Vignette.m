@@ -138,4 +138,3 @@ plot(Profile2,'g');
 %Profile 2 is better at handling vingetting because the pixel intensity is
 %more evenly distributed across the image
 end
-
