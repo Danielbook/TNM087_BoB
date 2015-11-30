@@ -43,6 +43,5 @@ imshow(OImage);
 %% TASK 6
 Im1 = 'CWhite1.jpg';
 Im2 = 'HWhite1.jpg';
-
-[ Profile1, Profile2 ] = Vignette( Im1, Im2 );
+[ Profile1, Profile2 ] = Vignette( Im1, Im2, 20000);
 

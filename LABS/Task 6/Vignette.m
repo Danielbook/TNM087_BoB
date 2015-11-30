@@ -51,17 +51,14 @@ function [ Profile1, Profile2 ] = Vignette( Im1, Im2, norings )
 
 %% Your code starts here
 %
-Im1 = 'CWhite1.jpg';
-Im2 = 'HWhite1.jpg';
+
+%% Input parameters
+
+if nargin < 3
+    norings = 50;
+end
 Im1 = imread(Im1);
 Im2 = imread(Im2);
-
-norings = 50;
-%% Input parameters
-%
-% if nargin < 3
-%     norings = 50;
-% end
 %% Generate two square images cIm1 and cIm2 that have the same size
 % Use the center of the images and if at least one of them is an RGB image 
 % either convert to gray value or exit with an error message
@@ -114,27 +111,31 @@ Profile2 = Profile1;
 %   rings
 %
 % or read the documentation of linspace
-ax = linspace(-norings:src1:norings);
+ax = linspace(-norings, norings, sr1);
 
-[C R] = meshgrid %Euclidean mesh
-[~,Rho] = cart2pol %Polar coordinates comment on the ~ used
-
+[C R] = meshgrid(ax); %Euclidean mesh
+[~,Rho] = cart2pol(C,R); %Polar coordinates comment on the ~ used 
+%##We dont need Theta, rho is the radius of the rings, we dont need the angles##
 %% Do the actual calculations
 for ringno = 1:norings
-    RMask = % Generate a mask describing the ring number ringno
-    nopixels = % Compute the number of pixes in RMask
-    pixsum = % Compute the sum over all pixel values in RMask in Im1
-    Profile1(ringno) = % ../.. Mean gray value of pixels i RMask
-        % ... and now you do it for the second images
-    Profile2
+    RMask = ( (ringno-1) <= Rho & Rho < ringno );% Generate a mask describing the ring number ringno
+    nopixels = sum(RMask(:));% Compute the number of pixels in RMask
+    pixsum = sum(cIm1(RMask));% Compute the sum over all pixel values in RMask in Im1
+    Profile1(ringno) =  pixsum/nopixels; %Mean gray value of pixels i RMask
+    pixsum = sum(cIm2(RMask));% Compute the sum over all pixel values in RMask in Im1% ... and now you do it for the second images
+    Profile2(ringno) = pixsum/nopixels; %Mean gray value of pixels i RMask
 end
 
 %% Finally the normalization to max value one 
 %
-Profile1 = 
-Profile2 = 
+Profile1 = Profile1/(max(Profile1));
+Profile2 = Profile2/(max(Profile2));
 
 %% Extra question: How can you find out if Im1 is better than Im2?
-
+plot(Profile1); 
+hold on;
+plot(Profile2,'g'); 
+%Profile 2 is better at handling vingetting because the pixel intensity is
+%more evenly distributed across the image
 end
 
