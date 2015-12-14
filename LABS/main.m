@@ -46,9 +46,9 @@ Im2 = 'HWhite1.jpg';
 [ Profile1, Profile2 ] = Vignette( Im1, Im2, 50);
 
 %% TASK 7
-OImage = 'einstein.jpg';
+OImage = 'elephant.jpg';
 OImage = imread(OImage);
-center = [50 50];
+center = [200 200];
 degangle = 45;
 
 RImage = FRotate(OImage, center, degangle );

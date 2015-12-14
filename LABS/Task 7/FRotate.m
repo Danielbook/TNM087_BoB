@@ -9,9 +9,9 @@ function RImage = FRotate(OImage, center, degangle )
 %% Syntax of the function
 %
 % Input arguments:  OImage original image
-%                   center 2-vector with center point of the rotation 
+%                   center 2-vector with center point of the rotation
 %                       see the pdf for an definition of center
-%                   degangle rotation angle in degrees, rotation is 
+%                   degangle rotation angle in degrees, rotation is
 %                       clockwise
 %
 % Output arguments: RImage is the rotated image
@@ -47,22 +47,22 @@ function RImage = FRotate(OImage, center, degangle )
 %
 
 %% Information about the image (size, type etc)
-%       You can assume that it has uint8 pixels 
+%       You can assume that it has uint8 pixels
 %       What should you do if this is not the case?
-%      
+%
 %       Cast to uint 8
-%       OImage = uint(255*OImage)    
+%       OImage = uint(255*OImage)
 [sr,sc,nc] = size(OImage);
 
 %% Generate coordinate vectors for the shifted coordinate system
-% (this means converting the index vector for a pixel to the 
+% (this means converting the index vector for a pixel to the
 %   coordinate vector of the same pixel)
 %
-ir = [1:sr];%index vector for pixels along first Matlab dimension
-ic = [1:sr];%same in the second direction
+ir = (1:sr); % index vector for pixels along first Matlab dimension
+ic = (1:sc); % same in the second direction
 
-cir = ir+center(1);%shifted ir vector so that center(1) is the origin
-cic = ic+center(2);%Same for the second axis
+cir = ir - center(1);%shifted ir vector so that center(1) is the origin
+cic = ic - center(2);%Same for the second axis
 
 %% Use cir and cic in meshgrid to generate a coordinate grid
 %
@@ -72,29 +72,37 @@ cic = ic+center(2);%Same for the second axis
 %
 [Theta,Rho] = cart2pol(C,R); %
 
-%% Convert the degress, modify the angles and 
-%   transform back to Euclidean coordinates 
+%% Convert the degress, modify the angles and
+%   transform back to Euclidean coordinates
 %   you may skip the next two lines and modify the input to pol2cart
 %   if you want
 
 rads = (degangle*pi)/180;% degs...
-TNew = Theta.*rads;% use Theta and degs
+TNew = Theta + rads;% use Theta and degs
 
-[nC,nR] = pol2cart(Theta, Rho); %
+[nC,nR] = pol2cart(TNew, Rho); %
 
-%% Compute the index vector from the coordinate vector inverting the 
+%% Compute the index vector from the coordinate vector inverting the
 % previous conversion from ir to cir and ic to cic
-newir =
-newic = 
+newir = ( round(nR(:,1)) + center(1) );
+newic = ( round(nC(1,:)) + center(2) );
+
+newir(newir > sr) = 0;
+newic(newic > sc) = 0;
+
+newir(newir < 1) = 0;
+newic(newic < 1) = 0;
+
 
 %% Now use nearest neighbor interpolation (round) and rotate
 
 RImage = uint8(zeros(sr,sc,nc));
 
-
-for k = 1:
-    for l = 1:
-        RImage( % = Oimage(
+for k = 1:sc
+    for l = 1:sr
+        if(newir(k,1) ~= 0 & newic(1,l) ~= 0)
+            RImage(k,l,:) = OImage(newir(k,1),newic(1,l),:);
+        end
     end
 end
 
