@@ -24,8 +24,8 @@ function GImage = GammaCorrection( OImage, Gamma, Lower, Upper )
 %
 %% Basic version control (in case you need more than one attempt)
 %
-% Version: 1
-% Date: 2015-11-23
+% Version: 2
+% Date: 2015-12-14
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -72,6 +72,9 @@ uppgv = quantile(GImage(:),Upper);
 %
 
 GImage = (GImage - lowgv)/(uppgv-lowgv);
+
+GImage(GImage<0) = 0;
+GImage(1<GImage) = 1;
 
 %% Actual mapping of the previous result
 %

@@ -4,9 +4,7 @@ function RImage = FRotate(OImage, center, degangle )
 %
 %% Who has done it
 %
-% Author: Same LiU-ID/name as in the Lisam submission
-% Co-author: You can work in groups of max 2, this is the LiU-ID/name of
-% the other member of the group
+% Author: Danbo324 - Daniel Böök
 %
 %% Syntax of the function
 %
@@ -23,7 +21,7 @@ function RImage = FRotate(OImage, center, degangle )
 %% Basic version control (in case you need more than one attempt)
 %
 % Version: 1
-% Date: today
+% Date: 2015-12-14
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -51,40 +49,41 @@ function RImage = FRotate(OImage, center, degangle )
 %% Information about the image (size, type etc)
 %       You can assume that it has uint8 pixels 
 %       What should you do if this is not the case?
-%
+%      
+%       Cast to uint 8
+%       OImage = uint(255*OImage)    
 [sr,sc,nc] = size(OImage);
 
 %% Generate coordinate vectors for the shifted coordinate system
 % (this means converting the index vector for a pixel to the 
 %   coordinate vector of the same pixel)
 %
-ir = %index vector for pixels along first Matlab dimension
-ic = %same in the second direction
+ir = [1:sr];%index vector for pixels along first Matlab dimension
+ic = [1:sr];%same in the second direction
 
-cir = %shifted ir vector so that center(1) is the origin
-cic = %Same for the second axis
+cir = ir+center(1);%shifted ir vector so that center(1) is the origin
+cic = ic+center(2);%Same for the second axis
 
 %% Use cir and cic in meshgrid to generate a coordinate grid
 %
-[C,R] = meshgrid % cir, cic
+[C,R] = meshgrid(cir, cic); % cir, cic
 
 %% The polar mesh coordinates are computed with cart2pol
 %
-[Theta,Rho] = cart2pol %
+[Theta,Rho] = cart2pol(C,R); %
 
 %% Convert the degress, modify the angles and 
 %   transform back to Euclidean coordinates 
 %   you may skip the next two lines and modify the input to pol2cart
 %   if you want
 
-rads = % degs...
-TNew = % use Theta and degs
+rads = (degangle*pi)/180;% degs...
+TNew = Theta.*rads;% use Theta and degs
 
-[nC,nR] = pol2cart %
+[nC,nR] = pol2cart(Theta, Rho); %
 
 %% Compute the index vector from the coordinate vector inverting the 
 % previous conversion from ir to cir and ic to cic
-
 newir =
 newic = 
 
