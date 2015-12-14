@@ -53,3 +53,8 @@ degangle = 45;
 
 RImage = FRotate(OImage, center, degangle );
 imshow(RImage);
+
+%% TASK 8
+load('H:\TNM087_BoB\LABS\Images\AutoFocus32x32Patches.mat');
+FStack = winsuint8;
+sfunction = Sharpness(FStack);

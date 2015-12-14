@@ -4,9 +4,7 @@ function sfunction = Sharpness(FStack)
 %
 %% Who has done it
 %
-% Author: Same LiU-ID/name as in the Lisam submission
-% Co-author: You can work in groups of max 2, this is the LiU-ID/name of
-% the other member of the group
+% Author: Danbo324 - Daniel Böök
 %
 %% Syntax of the function
 %
@@ -19,7 +17,7 @@ function sfunction = Sharpness(FStack)
 %% Basic version control (in case you need more than one attempt)
 %
 % Version: 1
-% Date: today
+% Date: 2015-12-14
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -50,15 +48,24 @@ function sfunction = Sharpness(FStack)
 
 %% Generate a grid, convert the Euclidean to polar coordinates
 %
-[X, Y] = meshgrid
-[TH,R] = cart2pol
+ir = 1:sx;
+ic = 1:sy;
+
+cx = ir - sx/2 - 0.5;
+cy = ic - sy/2 - 0.5;
+
+[X, Y] = meshgrid(cx,cy);
+[TH,R] = cart2pol(X,Y);
 
 %% Number of COMPLETE rings in the Fourier domain 
 % ignore the points in the corners
 
 norings = 8; %Change this if you want
 
-RQ = %this is the quantized version of R where 
+radie = sx/2;
+
+RQ = floor((R/radie*norings)+1); 
+%this is the quantized version of R where 
 % the pixel value is the index of the ring 
 % (origin = 0, and the point (0,r) has index norings  
 %...
@@ -69,17 +76,19 @@ maxindex = max(RQ(:));
 
 ptsperring = zeros(norings,1);
 for ringno = 1 
-    ptsperring(ringno) 
+    Rmask = (RQ == ringno);
+    ptsperring(ringno) = sum(Rmask(:));
+    imshow(Rmask);
 end
 
 %% Sum of fft magnitude per image - per ring
 
-absfftsums = zeros(noimages,maxindex);
+absfftsums = zeros(noimages,norings);
 
 for imno = 1:noimages
-    padimage = % Read about zero-padding
-    ftplan = fft2 % 2D fft
-    cftplan = fftshift % move origin to the center
+    padimage = padarray(FStack(:,:,imno), [padding padding]);% Read about zero-padding
+    ftplan = fft2(padding); % 2D fft
+    cftplan = fftshift(ftplan); % move origin to the center
     
     for ringno = 1
         ringmask = %this is a logical array defining the ring
