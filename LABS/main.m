@@ -46,7 +46,7 @@ Im2 = 'HWhite1.jpg';
 [ Profile1, Profile2 ] = Vignette( Im1, Im2, 50);
 
 %% TASK 7
-OImage = 'elephant.jpg';
+OImage = 'BoldRedEye.JPG';
 OImage = imread(OImage);
 center = [200 200];
 degangle = 45;

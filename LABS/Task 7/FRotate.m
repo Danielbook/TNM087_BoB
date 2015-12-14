@@ -66,7 +66,7 @@ cic = ic - center(2);%Same for the second axis
 
 %% Use cir and cic in meshgrid to generate a coordinate grid
 %
-[C,R] = meshgrid(cir, cic); % cir, cic
+[C,R] = meshgrid(cic, cir); %
 
 %% The polar mesh coordinates are computed with cart2pol
 %
@@ -78,14 +78,14 @@ cic = ic - center(2);%Same for the second axis
 %   if you want
 
 rads = (degangle*pi)/180;% degs...
-TNew = Theta + rads;% use Theta and degs
+TNew = Theta - rads;% use Theta and degs
 
 [nC,nR] = pol2cart(TNew, Rho); %
 
 %% Compute the index vector from the coordinate vector inverting the
 % previous conversion from ir to cir and ic to cic
-newir = ( round(nR(:,1)) + center(1) );
-newic = ( round(nC(1,:)) + center(2) );
+newir = ( round(nR) + center(1) );
+newic = ( round(nC) + center(2) );
 
 newir(newir > sr) = 0;
 newic(newic > sc) = 0;
@@ -98,10 +98,12 @@ newic(newic < 1) = 0;
 
 RImage = uint8(zeros(sr,sc,nc));
 
-for k = 1:sc
-    for l = 1:sr
-        if(newir(k,1) ~= 0 & newic(1,l) ~= 0)
-            RImage(k,l,:) = OImage(newir(k,1),newic(1,l),:);
+for k = 1:sr
+    for l = 1:sc
+        if (newir(k,l) ~= 0 & newic(k,l) ~= 0)
+            RImage(k,l,:) = OImage(newir(k,l),newic(k,l),:);
+        else
+             RImage(k,l,:) = 0;
         end
     end
 end
