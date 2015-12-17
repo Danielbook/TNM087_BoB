@@ -4,9 +4,7 @@ function sfunction = Sharpness(FStack)
 %
 %% Who has done it
 %
-% Author: Same LiU-ID/name as in the Lisam submission
-% Co-author: You can work in groups of max 2, this is the LiU-ID/name of
-% the other member of the group
+% Author: Danbo324 - Daniel Böök
 %
 %% Syntax of the function
 %
@@ -19,7 +17,7 @@ function sfunction = Sharpness(FStack)
 %% Basic version control (in case you need more than one attempt)
 %
 % Version: 1
-% Date: today
+% Date: 2015-12-17
 %
 % Gives a history of your submission to Lisam.
 % Version and date for this function have to be updated before each
@@ -50,26 +48,42 @@ function sfunction = Sharpness(FStack)
 
 %% Generate a grid, convert the Euclidean to polar coordinates
 %
-[X, Y] = meshgrid
-[TH,R] = cart2pol
+ir = 1:sy; %index vector for pixels along first Matlab dimension
+ic = 1:sx; %same in the second direction
 
-%% Number of COMPLETE rings in the Fourier domain 
+cr = ir-sy/2; %find center
+cc = ic-sx/2;
+
+[X, Y] = meshgrid(cr, cc);
+[TH,R] = cart2pol(X, Y);
+
+%% Number of COMPLETE rings in the Fourier domain
 % ignore the points in the corners
 
 norings = 8; %Change this if you want
+ImQ = zeros(sy, sx);
 
-RQ = %this is the quantized version of R where 
-% the pixel value is the index of the ring 
-% (origin = 0, and the point (0,r) has index norings  
-%...
+%this is the quantized version of R where the pixel value is the index of the ring
+% (origin = 0, and the point (0,r) has index norings
+r = linspace(0, sx/2, norings);
 
-maxindex = max(RQ(:));
+RQ =  R < r(2);
+ImQ(RQ) = 1;
+
+for i = 2:norings
+    RQ =  R < r(i) & R > r(i-1);
+    ImQ(RQ) = i;
+end
+
+maxindex = max(ImQ(:));
 
 %% Number of grid points in each ring
 
 ptsperring = zeros(norings,1);
-for ringno = 1 
-    ptsperring(ringno) 
+for ringno = 1:norings
+    %RQ = ImQ <ringno+1 & ImQ >ringno-1;
+    RQ = ImQ == ringno;
+    ptsperring(ringno) =  sum(sum(RQ));
 end
 
 %% Sum of fft magnitude per image - per ring
@@ -77,25 +91,27 @@ end
 absfftsums = zeros(noimages,maxindex);
 
 for imno = 1:noimages
-    padimage = % Read about zero-padding
-    ftplan = fft2 % 2D fft
-    cftplan = fftshift % move origin to the center
+    padimage = padarray(FStack(:,:,imno), [2 2]); % Read about zero-padding / oklart ifall zero-pad behövs!?
+    %padimage = FStack(:,:,imno);
+    ftplan = fft2(padimage); % 2D fft
+    cftplan = fftshift(ftplan); % move origin to the center
     
-    for ringno = 1
-        ringmask = %this is a logical array defining the ring
-        absfftsums(imno,ringno) = % average over Fourier magnitude in ring
+    for ringno = 1:norings
+        %ringmask = ImQ <ringno+1 & ImQ >ringno-1; %this is a logical array defining the ring
+        ringmask = ImQ == ringno;
+        ringmask = padarray(ringmask, [2 2]);
+        absfftsums(imno,ringno) = sum(abs(cftplan(ringmask)))/ptsperring(ringno); % average over Fourier magnitude in ring
     end
 end
-    
+
 %% Compute weighted average over the ring sums
-%
 
 meanfreqcontent = zeros(noimages,1);
 
-w = % here you may use the ring index, radius or something you define
+w = 1:norings;% here you may use the ring index, radius or something you define
 
 for imno = 1:noimages
-    meanfreqcontent(imno) = % combine w and absfftsums
+    meanfreqcontent(imno) = sum((w).*absfftsums(imno,w)); % combine w and absfftsums
 end
 
 %% Requested result

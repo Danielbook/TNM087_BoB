@@ -53,3 +53,5 @@ degangle = 45;
 
 RImage = FRotate(OImage, center, degangle );
 imshow(RImage);
+
+%% TASK 8
